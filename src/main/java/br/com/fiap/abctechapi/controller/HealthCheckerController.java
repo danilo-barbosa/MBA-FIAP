@@ -27,7 +27,7 @@ public class HealthCheckerController {
         properties.load(inptstm);
 
         return ResponseEntity.ok(properties.getProperty("build.name") + " - " + properties.getProperty("build.version"));
-        
+
 
     }
 
