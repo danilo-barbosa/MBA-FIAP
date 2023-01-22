@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Pre build phase - Build dependencies download"
+  build:
+    commands:
+      - echo "Building"
+      - mvn clean compile war:war
+  post_build:
+    commands:
+      - echo "Moving files to upload"
+      - mv target/*.war .ROOT.war
+artifacts:
+  files:
+    - ROOT.war
