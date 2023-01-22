@@ -1,5 +1,8 @@
 package br.com.fiap.abctechapi.controller;
 
+import br.com.fiap.abctechapi.component.VersionComponent;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,9 +13,11 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/")
 public class HealthCheckerController {
 
+    private final VersionComponent versionComponent;
     @GetMapping
     public ResponseEntity<Object> status () {
         return ResponseEntity.ok().build();
@@ -20,15 +25,11 @@ public class HealthCheckerController {
     @GetMapping("version")
     public ResponseEntity<String> version () throws IOException {
 
-        Properties properties = new Properties();
-
-        InputStream inptstm = getClass().getClassLoader().getResourceAsStream("application.yml");
-
-        properties.load(inptstm);
-
-        return ResponseEntity.ok(properties.getProperty("build.name") + " - " + properties.getProperty("build.version"));
+        return ResponseEntity.ok(versionComponent.getNameVersion());
 
 
     }
+
+
 
 }
