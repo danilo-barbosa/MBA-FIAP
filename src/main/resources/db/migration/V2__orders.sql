@@ -1,4 +1,4 @@
-create table abctech.order_location
+create table order_location
 (
     id  bigint auto_increment primary key,
     date      datetime(6) null,
@@ -6,26 +6,26 @@ create table abctech.order_location
     longitude double      null
 );
 
-create table abctech.orders
+create table orders
 (
     id  bigint auto_increment primary key,
     operator_id             bigint not null,
     end_order_location_id   bigint null,
     start_order_location_id bigint null,
     constraint FK_end_order_id
-        foreign key (end_order_location_id) references abctech.order_location (id),
+        foreign key (end_order_location_id) references order_location (id),
     constraint FK_start_order_id
-        foreign key (start_order_location_id) references abctech.order_location (id)
+        foreign key (start_order_location_id) references order_location (id)
 );
 
-create table abctech.orders_services
+create table orders_services
 (
     order_id    bigint not null,
     services_id bigint not null,
     constraint FK_service_id
-        foreign key (services_id) references abctech.assistances (id),
+        foreign key (services_id) references assistances (id),
     constraint FK_order_id
-        foreign key (order_id) references abctech.orders (id)
+        foreign key (order_id) references orders (id)
 );
 
 
