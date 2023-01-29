@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/order")
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class OrderController {
     private final OrderApplication orderApplication;
 
     @PostMapping
-    public ResponseEntity createOrder(@RequestBody OrderDto orderDto) throws Exception {
+    public ResponseEntity createOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
         log.info(orderDto.toString());
         orderApplication.createOrder(orderDto);
         return ResponseEntity.ok().build();
