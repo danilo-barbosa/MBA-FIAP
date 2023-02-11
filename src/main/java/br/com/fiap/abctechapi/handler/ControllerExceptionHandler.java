@@ -1,6 +1,7 @@
 
 package br.com.fiap.abctechapi.handler;
 
+import br.com.fiap.abctechapi.handler.exception.CoordinatesException;
 import br.com.fiap.abctechapi.handler.exception.InvalidAssistException;
 import br.com.fiap.abctechapi.handler.exception.MaxAssistsException;
 import br.com.fiap.abctechapi.handler.exception.MinimumAssistsException;
@@ -41,6 +42,18 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(InvalidAssistException.class)
     public ResponseEntity<ErrorMessageResponse> errorInvalidAssistException(InvalidAssistException exception){
+        ErrorMessageResponse error = new ErrorMessageResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                exception.getMessage(),
+                exception.getDescription()
+        );
+
+        return new ResponseEntity<ErrorMessageResponse>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CoordinatesException.class)
+    public ResponseEntity<ErrorMessageResponse> errorCoordinatesValidation(CoordinatesException exception) {
         ErrorMessageResponse error = new ErrorMessageResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
